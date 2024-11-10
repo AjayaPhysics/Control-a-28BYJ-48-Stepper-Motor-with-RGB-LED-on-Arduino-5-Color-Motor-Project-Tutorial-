@@ -1,0 +1,2 @@
+# Control-a-28BYJ-48-Stepper-Motor-with-RGB-LED-on-Arduino-5-Color-Motor-Project-Tutorial-
+To control a 28BYJ-48 stepper motor with an RGB LED on an Arduino, we can use the ULN2003 driver board to drive the motor and connect the RGB LED directly to the Arduino pins. This project includes five different colors to represent various stages of motor movement, providing both visual and functional feedback.
