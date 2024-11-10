@@ -1,0 +1,63 @@
+#include <Stepper.h>
+
+// Define steps per revolution for 28BYJ-48 motor (2048 steps)
+const int stepsPerRevolution = 2048;
+
+// Initialize Stepper with ULN2003 pins (IN1-IN4 connected to 8, 10, 9, 11)
+Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
+
+// RGB LED pins
+const int redPin = 5;
+const int greenPin = 6;
+const int bluePin = 7;
+
+void setup() {
+  // Set the motor speed in RPM
+  myStepper.setSpeed(10);
+
+  // Initialize RGB LED pins as outputs
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+
+  Serial.begin(9600);
+  Serial.println("Stepper motor with RGB LED control - 5 colors demo");
+}
+
+void loop() {
+  // Color 1: Red - Full clockwise rotation
+  setRGBColor(255, 0, 0);  // Red
+  Serial.println("Full clockwise rotation - Color: Red");
+  myStepper.step(stepsPerRevolution);
+  delay(1000);
+
+  // Color 2: Green - Quarter clockwise rotation
+  setRGBColor(0, 255, 0);  // Green
+  Serial.println("Quarter clockwise rotation - Color: Green");
+  myStepper.step(stepsPerRevolution / 4);
+  delay(1000);
+
+  // Color 3: Blue - Full counterclockwise rotation
+  setRGBColor(0, 0, 255);  // Blue
+  Serial.println("Full counterclockwise rotation - Color: Blue");
+  myStepper.step(-stepsPerRevolution);
+  delay(1000);
+
+  // Color 4: Yellow - Quarter counterclockwise rotation
+  setRGBColor(255, 255, 0);  // Yellow
+  Serial.println("Quarter counterclockwise rotation - Color: Yellow");
+  myStepper.step(-stepsPerRevolution / 4);
+  delay(1000);
+
+  // Color 5: Purple - Pause state
+  setRGBColor(128, 0, 128);  // Purple
+  Serial.println("Pause - Color: Purple");
+  delay(2000);  // Pause for 2 seconds
+}
+
+// Function to set RGB color by controlling PWM on each color pin
+void setRGBColor(int red, int green, int blue) {
+  analogWrite(redPin, red);
+  analogWrite(greenPin, green);
+  analogWrite(bluePin, blue);
+}
